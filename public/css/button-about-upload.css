@@ -1,0 +1,128 @@
+
+
+:root {
+  --bg: #ffffff;
+  --nav-bg: rgba(30, 41, 59, 0.8);
+  --accent: #38bdf8;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --input-bg: #1e293b;
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+
+
+/* Settings & Inputs */
+.settings-section {
+  background: rgba(11, 33, 22, 0.8);
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3px);
+}
+
+
+
+/* Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.action-buttons.sys {
+  justify-content: right;
+  gap: 20px;
+}
+
+button {
+  border: none;
+  padding: 12px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+.btn-save-settings {
+  border-radius: 20px;
+  background: #a26;
+  color: #fff;
+}
+
+.btn-reset-fields {
+  border-radius: 20px;
+  background: #334;
+  color: white;
+}
+
+.btn-upload {
+  border-radius: 20px;
+  background: var(--accent);
+  color: #fff;
+  width: 100px;
+}
+
+.btn-restart-device {
+  background: #934;
+  border-radius: 20px;
+  color: white;
+}
+
+.btn-factory-reset {
+  background: #45a;
+  border-radius: 20px;
+  color: white;
+}
+
+.about-section-title {
+  font-size: 0.95em;
+  color: #888;
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #2a2f3b;
+  letter-spacing: 1px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 4px 0;
+}
+
+.info-row-key {
+  color: #aaa;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  text-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.info-row-value {
+  font-weight: 500;
+  color: #fff;
+}
+
+/*.info-row.unit { font-weight: 500; color: #fff;}*/
+
+.about-card {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  height: auto;
+  background: rgba(11, 33, 22, 0.8);
+  padding: 15px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3px);
+}
