@@ -1,0 +1,341 @@
+.sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* Cards-------------------------------------------------------------------------------- */
+.card {
+    position: relative;
+    height: 150px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    background: rgba(22, 33, 44, 0.7);
+    backdrop-filter: blur(3px);
+}
+
+.card .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 10;
+    opacity: 0.9;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.card .value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    z-index: 10;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.card .unit {
+    font-size: 0.9rem;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+/* sensor default backgrounds */
+.card-bg-water-level { background: linear-gradient(135deg, rgba(30, 58, 138, 0.65), rgba(14, 165, 233, 0.65)); }
+.card-bg-water-temp { background: linear-gradient(135deg, rgba(56, 189, 248, 0.65), rgba(42, 155, 233, 0.65)); }
+.card-bg-water-tds { background: linear-gradient(135deg, rgba(56, 158, 189, 0.65), rgba(53, 171, 175, 0.65)); }
+.card-bg-air-pressure { background: linear-gradient(135deg, rgba(121, 173, 91, 0.65), rgba(133, 148, 175, 0.65)); }
+.card-bg-air-temp { background: linear-gradient(135deg, rgba(122, 107, 40, 0.65), rgba(226, 120, 33, 0.65)); }
+.card-bg-humidity { background: linear-gradient(135deg, rgba(61, 99, 97, 0.65), rgba(38, 103, 141, 0.65)); }
+.card-bg-air-quality { background: linear-gradient(135deg, rgba(68, 228, 94, 0.65), rgba(54, 104, 72, 0.65)); }
+.card-bg-sunlight { background: linear-gradient(135deg, rgba(113, 63, 18, 0.65), rgba(234, 179, 8, 0.65)); }
+.card-bg-rainfall { background: linear-gradient(135deg, rgba(47, 46, 82, 0.65), rgba(28, 63, 68, 0.65)); }
+.card-bg-wind { background: linear-gradient(135deg, rgba(75, 46, 46, 0.65), rgba(65, 70, 47, 0.65)); }
+.card-bg-water-muddy { background: linear-gradient(135deg, rgba(105, 190, 223, 0.65), rgba(104, 198, 226, 0.65)); }
+
+
+/* Water level card animations--------------------------------------------------------------- */
+.layer-water-level {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  
+}
+
+.water-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(56, 189, 248, 0.8);
+  transition: height 1s;
+}
+
+.wave-shape {
+  position: absolute;
+  top: -2px;
+  width: 200%;
+  height: 4px;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg"><path d="M0 15 Q30 0 60 15 t60 0 h-120 z" fill="rgba(60, 195, 256, 0.9)"/></svg>');
+  background-size: 50% 100%;
+  animation: waveAnime 3s linear infinite;
+}
+
+@keyframes waveAnime {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+/* water level card animations--------------------------------------------------------------- */
+
+/* bubbles container */
+.layer-water-temp {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* single bubble */
+.bubble {
+  position: absolute;
+  bottom: -20px;
+  width: 10px;
+  border: 1px solid white;
+  height: 10px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(122, 122, 122, 0.4));
+  border-radius: 50%;
+  animation: rise linear infinite;
+}
+
+/* animation */
+@keyframes rise {
+  0% { transform: translateY(0) scale(1); opacity: 0.7;}
+  100% {transform: translateY(-180px) scale(1.5); opacity: 0; }
+}
+
+
+/* water tds animation and value update-------------------------------------------------------------------- */
+
+/* micro particles layer */
+.layer-water-tds {
+  position: absolute;
+  inset: 0;
+}
+
+/* dissolved particle */
+.tds-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  animation: tdsMove linear forwards;
+}
+
+/* water muddiness animation and value update---------------------------------------------------------------- */
+
+/* particle container */
+.layer-water-muddy {
+  position: absolute;
+  inset: 0;
+}
+
+/* dirt particle */
+.mud-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  bottom: -10px;
+  background: rgba(80, 60, 40, 0.5);
+  border-radius: 50%;
+  animation-timing-function: linear;
+  opacity: 0;
+}
+
+
+/* air pressure animation---------------------------------------------------------------------------------- */
+
+/* WAVES CONTAINER */
+.layer-air-pressure {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* SINGLE WAVE */
+.air-wave {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: rgba(243, 212, 154, 0.2);
+  border-radius: 40%;
+  bottom: 0;
+  opacity: 0;
+  animation: waveMove linear forwards;
+}
+
+/* ANIMATION */
+@keyframes airWaveMove {
+  0% { transform: translateX(0) scaleY(0.8);   opacity: 0; }
+  20% {   opacity: 0.8;  }
+  50% {   transform: translateX(-25%) scaleY(1.1); }
+  80% {   opacity: 0.7;  }
+  100% {   transform: translateX(-50%) scaleY(1);   opacity: 0; }
+}
+
+
+/* air temperature animation and value update---------------------------------------------------------------- */
+
+/* HEAT LAYER */
+.layer-air-temp {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* HEAT PARTICLE */
+.heat-particle {
+  position: absolute;
+  bottom: -20px;
+  width: 20px;
+  height: 60px;
+  background: linear-gradient(to top,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 1));
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(4px);
+  animation: heatRise linear forwards;
+}
+
+/* ANIMATION */
+@keyframes heatRise {
+  0% {  transform: translateY(0) scaleX(0.8);  opacity: 0;}
+  20% {  opacity: 1;}
+  50% {  transform: translateY(-60px) scaleX(1.2);}
+  80% {  opacity: 0.6; }
+  100% {   transform: translateY(-140px) scaleX(0.9);  opacity: 0; }
+}
+
+
+/* humidity animation and particale effect---------------------------------------------------------------------------------- */ */
+.layer-humidity {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.droplet {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+}
+
+
+/* air quality animation and particale effect---------------------------------------------------------------------------------- */ */
+
+.layer-AQI {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* PARTICLE */
+.particleAir {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+/* rain layer and animation---------------------------------------------------------------------------------- */
+
+/* LAYER */
+.layer-rain {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* DROP */
+.raindrop {
+  position: absolute;
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(to top,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0));
+  border-radius: 50%;
+  opacity: 1;
+  z-index: 10;
+  /* filter: blur(0.3px);*/
+}
+
+/* SPLASH */
+.splash-rain {
+  position: absolute;
+  width: 4px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  opacity: 1;
+}
+
+
+
+/*wind layer and animation---------------------------------------------------------------------------------- */
+
+/* WIND LAYER */
+.layer-wind-speed {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* WIND LINE */
+.wind-wave {
+  position: absolute;
+  height: 2px;
+  width: 20px;
+
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8));
+  border-radius: 50%;
+  opacity: 0;
+}
+
+/* SUNLIGHT ANIMATION---------------------------------------------------------------------------------- */
+
+
+.sun-orb {
+  position: absolute;
+  border-radius: 50%;
+  right: -45px;
+  bottom: -45px;
+  width: 170px;
+  height: 170px;
+  filter: blur(3px);
+  z-index: 1;
+  transition: background 0.5s linear, box-shadow 0.5s linear, transform 0.5s linear;
+}
+
+.light-ray {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 78% 82%, rgba(255, 180, 0, 0.15), transparent 60%);
+  filter: blur(10px);
+  transition: opacity 0.5s linear;
+  border-radius: 1px;
+  opacity: 1;
+  z-index: 0;
+
+}
